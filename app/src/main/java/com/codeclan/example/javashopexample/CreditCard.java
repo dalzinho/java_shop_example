@@ -11,14 +11,9 @@ public class CreditCard implements Payable {
     String provider;
     Double balance;
     Double creditLimit;
-    CardType type;
 
-    public CardType getType() {
-        return type;
-    }
 
     public CreditCard(String provider, Double creditLimit){
-        this.type = CREDIT;
 
         this.provider = provider;
         this.balance = 0.0;
@@ -53,7 +48,7 @@ public class CreditCard implements Payable {
         return "Unable to complete transaction";
     }
 
-    public void commitSale(Double amount){
+    public void commitPurchase(Double amount){
         if(willNotExceedLimit(amount)){
             deduct(amount);
             reportCompleteTransaction();

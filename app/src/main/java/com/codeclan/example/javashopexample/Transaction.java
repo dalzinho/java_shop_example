@@ -29,4 +29,29 @@ public class Transaction {
         return customer;
     }
 
+    public void adjustCreditCardBalance(CreditCard card){
+        if(this.type.equals(TransactionType.REFUND)){
+            card.commitPurchase(this.value * -1);
+        }
+        else {
+            card.commitPurchase(this.value);
+        }
+    }
+
+    public void adjustShopBalance(Shop shop) {
+        if (this.type.equals(TransactionType.REFUND)) {
+            shop.addToBalance(this.value * -1);
+        } else {
+            shop.addToBalance(this.value);
+        }
+
+    }
+
+    public void enact(CreditCard card, Shop shop ){
+        adjustCreditCardBalance(card);
+        adjustShopBalance(shop);
+    }
+
+
+
 }

@@ -9,18 +9,37 @@ import java.util.HashMap;
 
 public class Shop {
 
+    //instance variables
     private String shopName;
-    private ArrayList<Transaction> transactions;
+    private Double shopBalance;
+    private ArrayList<Transaction> transactionLog;
     private HashMap inventory;
     private String item;
     private Double price;
 
+    //constructor
     public Shop(String shopName){
         this.shopName = shopName;
-        this.transactions = new ArrayList<Transaction>();
+        this.shopBalance = 1000.00;
+        this.transactionLog = new ArrayList<Transaction>();
         this.inventory = new HashMap();
     }
 
+    // methods
+   public void addToBalance(Double amount){
+       this.shopBalance += amount;
+   }
+
+    //getters
+    public Double getBalance() {
+        return shopBalance;
+    }
+
+    public ArrayList<Transaction> getTransactionLog() {
+        return transactionLog;
+    }
+
+    //inventory methods
     public void addItemToInventory(String addItem, Double addPrice){
         inventory.put(addItem, addPrice);
     }
@@ -31,5 +50,14 @@ public class Shop {
 
     public Double getPrice(String searchKey){
         return (Double) inventory.get(searchKey);
+    }
+
+
+    public void manageTransaction(TransactionType type, Customer customer, Double value) {
+        Transaction transaction = new Transaction(type, customer, value);
+        CreditCard paymentCard = customer.getCreditCard();
+        transaction.enact(paymentCard, this);
+        transactionLog.add(transaction);
+
     }
 }

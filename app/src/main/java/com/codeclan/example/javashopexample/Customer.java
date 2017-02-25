@@ -14,12 +14,15 @@ import static com.codeclan.example.javashopexample.TransactionType.SALE;
 public class Customer {
 
     private String customerName;
-    private ArrayList<Payable> paymentMethods;
+    private HashMap paymentMethods;
 
-    public Customer(String customerName, Payable[] cardsHeld){
+    public Customer(String customerName){
         this.customerName = customerName;
+        paymentMethods = new HashMap<CardType, Payable>();
 
-        paymentMethods = new ArrayList<Payable>();
+//        for(Payable card : cardsHeld){
+//            paymentMethods.add(card);
+//        }
     }
 
     public String getCustomerName() {
@@ -30,26 +33,27 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public ArrayList<Payable> getPaymentMethods() {
+    public void addPaymentMethod(CardType type, Payable card){
+        paymentMethods.put(type, card);
+    }
+
+    public HashMap getPaymentMethods() {
         return paymentMethods;
     }
 
-    public void setPaymentMethods(ArrayList<Payable> paymentMethods) {
-        this.paymentMethods = paymentMethods;
+    public CreditCard getCreditCard(){
+
+        CreditCard result = (CreditCard) this.paymentMethods.get(CREDIT);
+        return result;
     }
 
-    public Payable getCreditCard(){
-        for(Payable card : paymentMethods){
-            if(card.getType.equals(CREDIT){
-                Payable result = card;
-            }
-        }
+    public double beginPurchase(Shop shop, String item){
+        return shop.getPrice(item);
     }
 
-//    public Transaction beginTransaction(String item, Shop shop){
-//        return new Transaction(SALE, this, shop.getPrice(item));
-//    }
 
+
+// public CAST PAYABLE TO CARD TYPE!
 
 
 }
