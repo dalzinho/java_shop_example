@@ -19,6 +19,7 @@ public class TestTransaction {
     CreditCard creditCard;
     Transaction sale;
     Transaction refund;
+    Console console;
 
     @Before
     public void setup(){
@@ -29,6 +30,8 @@ public class TestTransaction {
         customer = new Customer("Basil Brush");
         sale = new Transaction(SALE, customer, 200.00);
         refund = new Transaction(REFUND, customer, 200.00);
+        console = new Console();
+
     }
 
     @Test
@@ -45,7 +48,7 @@ public class TestTransaction {
 
     @Test
     public void testControlSaleDoesAsItShould(){
-        sale.enact(creditCard, shop);
+        sale.enact(creditCard, shop, console);
         assertEquals(-200, creditCard.getBalance(), 0.01);
         assertEquals(1200, shop.getBalance(), 0.01);
     }
@@ -60,6 +63,20 @@ public class TestTransaction {
     public void testRefundDeductsShopBalance(){
         refund.adjustShopBalance(shop);
         assertEquals(800, shop.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testAdjustCCBalanceStoresEventInLog(){
+        sale.adjustCreditCardBalance(creditCard);
+        assertEquals("Transaction Successful", sale.getTransactionEvents().get(0));
+        assertEquals("New card Balance: £-200.0", sale.getTransactionEvents().get(1));
+    }
+
+    @Test
+    public void testAdjustingCCBalanceStoresLogForRefunds(){
+        refund.adjustCreditCardBalance(creditCard);
+        assertEquals("Transaction Successful", refund.getTransactionEvents().get(0));
+        assertEquals("New card Balance: £200.0", refund.getTransactionEvents().get(1));
     }
 
 //    @Test

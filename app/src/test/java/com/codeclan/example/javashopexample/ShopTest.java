@@ -16,6 +16,7 @@ public class ShopTest {
     private CreditCard creditCard;
     private Customer customer;
     private Shop shop;
+    private Console console;
 
     @Before
     public void setup(){
@@ -27,6 +28,7 @@ public class ShopTest {
         shop.addItemToInventory("Kvas", 20.0);
         shop.addItemToInventory("Pivo", 40.0);
         shop.addItemToInventory("Kefir", 10.0);
+        console = new Console();
     }
 
     @Test
@@ -41,8 +43,8 @@ public class ShopTest {
 
     @Test
     public void testCanLogTransactionsInTransactionsLog(){
-        shop.manageTransaction(TransactionType.SALE, customer, 120.);
-        shop.manageTransaction(TransactionType.REFUND, customer, 80.);
+        shop.manageTransaction(TransactionType.SALE, customer, 120., console);
+        shop.manageTransaction(TransactionType.REFUND, customer, 80., console);
         assertEquals(2, shop.getTransactionLog().size());
         assertEquals(-40, creditCard.getBalance(), 0.01);
         assertEquals(1040, shop.getBalance(), 0.01);

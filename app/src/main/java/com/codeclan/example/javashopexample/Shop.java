@@ -53,10 +53,10 @@ public class Shop {
     }
 
 
-    public void manageTransaction(TransactionType type, Customer customer, Double value) {
+    public void manageTransaction(TransactionType type, Customer customer, Double value, Console console) {
         Transaction transaction = new Transaction(type, customer, value);
         CreditCard paymentCard = customer.getCreditCard();
-        transaction.enact(paymentCard, this);
+        transaction.enact(paymentCard, this, console);
         transactionLog.add(transaction);
 
     }

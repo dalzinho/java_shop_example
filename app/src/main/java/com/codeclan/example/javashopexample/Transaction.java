@@ -1,22 +1,29 @@
 package com.codeclan.example.javashopexample;
 
+import java.util.ArrayList;
+
 /**
  * Created by user on 24/02/2017.
  */
 
 public class Transaction {
 
+    //instance variable
     TransactionType type;
     Double value;
     Customer customer;
+    ArrayList<String> transactionEvents;
 
+    //constructor
     public Transaction(TransactionType type, Customer customer, Double value ){
         this.type = type;
         this.value = value;
         this.customer = customer;
+        transactionEvents = new ArrayList<String>();
 
     }
 
+    //getters
     public TransactionType getType() {
         return type;
     }
@@ -29,12 +36,19 @@ public class Transaction {
         return customer;
     }
 
+    public ArrayList<String> getTransactionEvents() {
+        return transactionEvents;
+    }
+
     public void adjustCreditCardBalance(CreditCard card){
         if(this.type.equals(TransactionType.REFUND)){
-            card.commitPurchase(this.value * -1);
+            transactionEvents.add(card.commitPurchase(this.value * -1));
+            transactionEvents.add("New card Balance: £" + card.getBalance());
+
         }
         else {
-            card.commitPurchase(this.value);
+            transactionEvents.add(card.commitPurchase(this.value));
+            transactionEvents.add("New card Balance: £" + card.getBalance());
         }
     }
 
@@ -47,11 +61,17 @@ public class Transaction {
 
     }
 
-    public void enact(CreditCard card, Shop shop ){
-        adjustCreditCardBalance(card);
-        adjustShopBalance(shop);
+    public void displayAllLogContents(Console console){
+        for(String event : transactionEvents){
+            console.show(event);
+        }
     }
 
+    public void enact(CreditCard card, Shop shop, Console console){
+        adjustCreditCardBalance(card);
+        adjustShopBalance(shop);
+        displayAllLogContents(console);
 
+    }
 
 }

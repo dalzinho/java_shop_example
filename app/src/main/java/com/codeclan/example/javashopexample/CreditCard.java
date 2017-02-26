@@ -48,13 +48,15 @@ public class CreditCard implements Payable {
         return "Unable to complete transaction";
     }
 
-    public void commitPurchase(Double amount){
+    public String commitPurchase(Double amount){
+        String result = null;
         if(willNotExceedLimit(amount)){
             deduct(amount);
-            reportCompleteTransaction();
+            result = reportCompleteTransaction();
         }
         else{
-            reportUnsuccessfulTransaction();
+            result = reportUnsuccessfulTransaction();
         }
+        return result;
     }
 }

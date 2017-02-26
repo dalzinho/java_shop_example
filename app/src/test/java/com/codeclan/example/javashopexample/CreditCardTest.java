@@ -28,6 +28,7 @@ public class CreditCardTest {
     public void testCanNotExceedLimit(){
         creditCard.deduct(999.00);
         assertEquals(false, creditCard.willNotExceedLimit(2.0));
+        assertEquals("Unable to complete transaction", creditCard.commitPurchase(2.0));
     }
 
 
