@@ -22,13 +22,23 @@ public class Runner {
 
         while(true) {
             console.show("Make a new sale");
-            console.show("Please select payment type");
-
-
+            console.show("Please enter sale amount");
             String s = console.getInput();
             Double saleAmount = Double.parseDouble(s);
 
-            shop.manageTransaction(TransactionType.SALE, customer, saleAmount, console);
+            console.show("Please select payment type");
+            String cardChoice = console.selectCardType();
+            if (cardChoice == "c"){
+                shop.manageTransaction(TransactionType.SALE, customer, saleAmount, console, CardType.CREDIT);
+            }
+            else if (cardChoice == "d") {
+                shop.manageTransaction(TransactionType.SALE, customer, saleAmount, console, CardType.DEBIT);
+            }
+                else{
+                break;
+            }
+
+
         }
 
 

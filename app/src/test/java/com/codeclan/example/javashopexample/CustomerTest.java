@@ -52,7 +52,7 @@ public class CustomerTest {
 
     @Test
     public void testCanAccessDebitCard(){
-        
+        assertEquals(100., customer.getDebitCard().getBalance(), 0.01);
     }
 
 //    @Test

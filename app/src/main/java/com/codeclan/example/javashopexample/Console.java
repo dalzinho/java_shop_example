@@ -18,15 +18,15 @@ public class Console {
     }
 
 
-    public void selectCardType(){
+    public String selectCardType(){
 //        scanner = new Scanner(System.in);
         show("(C)redit Card");
         show("(D)ebit Card");
-        cardChoice(getInput());
+        return getInput();
     }
 
-    public Payable cardChoice(){
-        switch
+    public void cardChoice(String string){
+
     }
 
     public void mainMenu(){

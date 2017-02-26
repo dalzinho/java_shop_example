@@ -40,7 +40,19 @@ public class Transaction {
         return transactionEvents;
     }
 
-    public void adjustCreditCardBalance(CreditCard card){
+    public void adjustCreditCardBalance(DebitCard card){
+        if(this.type.equals(TransactionType.REFUND)){
+            transactionEvents.add(card.commitPurchase(this.value * -1));
+            transactionEvents.add("New card Balance: £" + card.getBalance());
+
+        }
+        else {
+            transactionEvents.add(card.commitPurchase(this.value));
+            transactionEvents.add("New card Balance: £" + card.getBalance());
+        }
+    }
+
+    public void adjustDebitCardBalance(DebitCard card){
         if(this.type.equals(TransactionType.REFUND)){
             transactionEvents.add(card.commitPurchase(this.value * -1));
             transactionEvents.add("New card Balance: £" + card.getBalance());
@@ -67,11 +79,11 @@ public class Transaction {
         }
     }
 
-    public void enact(CreditCard card, Shop shop, Console console){
-        adjustCreditCardBalance(card);
+    public void enact(CreditCard creditcard, Shop shop, Console console){
+        adjustCreditCardBalance(creditcard);
         adjustShopBalance(shop);
         displayAllLogContents(console);
-
+        
     }
 
 }

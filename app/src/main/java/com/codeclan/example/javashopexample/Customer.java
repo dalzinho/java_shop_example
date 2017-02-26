@@ -43,12 +43,11 @@ public class Customer {
 
     public CreditCard getCreditCard(){
 
-        CreditCard result = (CreditCard) this.paymentMethods.get(CREDIT);
+        CreditCard result = (CreditCard) this.paymentMethods.get(CardType.CREDIT);
         return result;
     }
 
     public DebitCard getDebitCard() {
-
         DebitCard result = (DebitCard) this.paymentMethods.get(CardType.DEBIT);
         return result;
     }

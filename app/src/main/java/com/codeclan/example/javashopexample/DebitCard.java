@@ -9,11 +9,23 @@ public class DebitCard implements Payable {
     String provider;
     Double balance;
 
+    //constructor
     public DebitCard(String provider, Double balance){
         this.provider = provider;
         this.balance = balance;
     }
 
+    //getters
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
+
+    //mair methods
     public void deduct(Double amount){
         this.balance -= amount;
     }

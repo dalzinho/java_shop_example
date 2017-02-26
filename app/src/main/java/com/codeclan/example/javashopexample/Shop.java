@@ -19,7 +19,7 @@ public class Shop {
     private Double price;
 
     //constructor
-    public Shop(String shopName){
+    public Shop(String shopName) {
         this.shopName = shopName;
         this.shopBalance = 1000.00;
         this.transactionLog = new ArrayList<Transaction>();
@@ -27,9 +27,9 @@ public class Shop {
     }
 
     // methods
-   public void addToBalance(Double amount){
-       this.shopBalance += amount;
-   }
+    public void addToBalance(Double amount) {
+        this.shopBalance += amount;
+    }
 
     //getters
 
@@ -46,7 +46,7 @@ public class Shop {
     }
 
     //inventory methods
-    public void addItemToInventory(String addItem, Double addPrice){
+    public void addItemToInventory(String addItem, Double addPrice) {
         inventory.put(addItem, addPrice);
     }
 
@@ -54,17 +54,26 @@ public class Shop {
         return inventory;
     }
 
-    public Double getPrice(String searchKey){
+    public Double getPrice(String searchKey) {
         return (Double) inventory.get(searchKey);
     }
 
 
-
-    public void manageTransaction(TransactionType type, Customer customer, Double value, Console console) {
+    public void manageTransaction(TransactionType type, Customer customer, Double value, Console console, CardType card) {
         Transaction transaction = new Transaction(type, customer, value);
-        CreditCard paymentCard = customer.getCreditCard();
-        transaction.enact(paymentCard, this, console);
-        transactionLog.add(transaction);
+        if(card == CardType.CREDIT){
+            transaction.enact(customer.getCreditCard(), this, console);
+        }
+        else if (card == CardType.DEBIT) {
+            transaction.enact(customer.getDebitCard(), this, console);
+        }
 
+        transactionLog.add(transaction);
     }
+
+//    public void manageTransaction(TransactionType type, Customer customer, Double value, Console console, DebitCard card) {
+//        Transaction transaction = new Transaction(type, customer, value);
+//        transaction.enact(card, this, console);
+//        transactionLog.add(transaction);
+
 }
