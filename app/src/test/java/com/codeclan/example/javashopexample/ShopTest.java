@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static com.codeclan.example.javashopexample.TransactionType.SALE;
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 
 /**
  * Created by user on 24/02/2017.
@@ -20,10 +21,11 @@ public class ShopTest {
 
     @Before
     public void setup(){
-        debitCard = new DebitCard("First Direct", 100.0);
+        debitCard = new DebitCard("First Direct", 1000.0);
         creditCard = new CreditCard("Nationwide", 1000.00);
         customer = new Customer("Lev Yashin");
         customer.addPaymentMethod(CardType.CREDIT, creditCard);
+        customer.addPaymentMethod(CardType.DEBIT, debitCard);
         shop = new Shop("Univermag");
         shop.addItemToInventory("Kvas", 20.0);
         shop.addItemToInventory("Pivo", 40.0);
@@ -43,11 +45,17 @@ public class ShopTest {
 
     @Test
     public void testCanLogTransactionsInTransactionsLog(){
-        shop.manageTransaction(TransactionType.SALE, customer, 120., console);
-        shop.manageTransaction(TransactionType.REFUND, customer, 80., console);
+        shop.manageCCTransaction(TransactionType.SALE, customer, 120., console);
+        shop.manageCCTransaction(TransactionType.REFUND, customer, 80., console);
         assertEquals(2, shop.getTransactionLog().size());
         assertEquals(-40, creditCard.getBalance(), 0.01);
         assertEquals(1040, shop.getBalance(), 0.01);
+    }
+
+    @Test
+    public void testDebitTransactionsWorkToo(){
+        shop.manageDCTransaction(TransactionType.SALE, customer, 100., console);
+        assertEquals(900., customer.getDebitCard().getBalance());
     }
 }
 

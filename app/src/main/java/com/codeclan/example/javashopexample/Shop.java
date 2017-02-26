@@ -59,17 +59,18 @@ public class Shop {
     }
 
 
-    public void manageTransaction(TransactionType type, Customer customer, Double value, Console console, CardType card) {
+    public void manageCCTransaction(TransactionType type, Customer customer, Double value, Console console) {
         Transaction transaction = new Transaction(type, customer, value);
-        if(card == CardType.CREDIT){
-            transaction.enact(customer.getCreditCard(), this, console);
-        }
-        else if (card == CardType.DEBIT) {
-            transaction.enact(customer.getDebitCard(), this, console);
-        }
-
+        transaction.enact(customer.getCreditCard(), this, console);
         transactionLog.add(transaction);
     }
+
+    public void manageDCTransaction(TransactionType type, Customer customer, Double value, Console console) {
+        Transaction transaction = new Transaction(type, customer, value);
+        transaction.enact(customer.getDebitCard(), this, console);
+        transactionLog.add(transaction);
+    }
+
 
 //    public void manageTransaction(TransactionType type, Customer customer, Double value, Console console, DebitCard card) {
 //        Transaction transaction = new Transaction(type, customer, value);

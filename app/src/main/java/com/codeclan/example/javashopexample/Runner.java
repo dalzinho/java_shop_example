@@ -18,9 +18,9 @@ public class Runner {
 
         Console console = new Console();
 
-        console.show("Welcome to " + shop.getShopName());
+        while (true) {
+            console.show("Welcome to " + shop.getShopName());
 
-        while(true) {
             console.show("Make a new sale");
             console.show("Please enter sale amount");
             String s = console.getInput();
@@ -28,23 +28,39 @@ public class Runner {
 
             console.show("Please select payment type");
             String cardChoice = console.selectCardType();
-            if (cardChoice == "c"){
-                shop.manageTransaction(TransactionType.SALE, customer, saleAmount, console, CardType.CREDIT);
-            }
-            else if (cardChoice == "d") {
-                shop.manageTransaction(TransactionType.SALE, customer, saleAmount, console, CardType.DEBIT);
-            }
-                else{
-                break;
+            if (cardChoice.equals("c")) {
+                shop.manageCCTransaction(TransactionType.SALE, customer, saleAmount, console);
+            } else if (cardChoice.equals("d")) {
+                shop.manageDCTransaction(TransactionType.SALE, customer, saleAmount, console);
             }
 
+            System.out.println();
+
+            console.show("Transaction Log");
+            console.show("===============");
+
+            for (Transaction transaction : shop.getTransactionLog()) {
+                console.show(transaction.getCustomer().getCustomerName());
+                console.show(transaction.getType().toString());
+                console.show(transaction.getValue().toString());
+                System.out.println();
+            }
+
+            console.show("REFUND");
+            console.show("======");
+            console.show("Please enter refund amount");
+            s = console.getInput();
+            Double refundAmount = Double.parseDouble(s);
+
+            console.show("Please select card for refund");
+            cardChoice = console.selectCardType();
+            if (cardChoice.equals("c")) {
+                shop.manageCCTransaction(TransactionType.REFUND, customer, refundAmount, console);
+            } else if (cardChoice.equals("d")) {
+                shop.manageDCTransaction(TransactionType.REFUND, customer, refundAmount, console);
+            }
+            System.out.println();
 
         }
-
-
-
-
-
-
     }
 }
