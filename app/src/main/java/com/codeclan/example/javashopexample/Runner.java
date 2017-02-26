@@ -19,9 +19,18 @@ public class Runner {
         Console console = new Console();
 
         console.show("Welcome to " + shop.getShopName());
-        System.out.println();
-        console.mainMenu();
-        console.mainMenuInput(console.getInput());
+
+        while(true) {
+            console.show("Make a new sale");
+            console.show("Please select payment type");
+
+
+            String s = console.getInput();
+            Double saleAmount = Double.parseDouble(s);
+
+            shop.manageTransaction(TransactionType.SALE, customer, saleAmount, console);
+        }
+
 
 
 

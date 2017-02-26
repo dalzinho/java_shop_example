@@ -12,6 +12,7 @@ public class Shop {
     //instance variables
     private String shopName;
     private Double shopBalance;
+    private ArrayList<Customer> customers;
     private ArrayList<Transaction> transactionLog;
     private HashMap inventory;
     private String item;

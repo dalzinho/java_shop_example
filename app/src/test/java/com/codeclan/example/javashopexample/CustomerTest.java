@@ -51,8 +51,8 @@ public class CustomerTest {
     }
 
     @Test
-    public void testBeginPurchaseReturnsPrice(){
-        assertEquals(20.0, customer.beginPurchase(shop, "Bread"));
+    public void testCanAccessDebitCard(){
+        
     }
 
 //    @Test

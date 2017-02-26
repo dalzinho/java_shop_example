@@ -47,9 +47,12 @@ public class Customer {
         return result;
     }
 
-    public double beginPurchase(Shop shop, String item){
-        return shop.getPrice(item);
+    public DebitCard getDebitCard() {
+
+        DebitCard result = (DebitCard) this.paymentMethods.get(CardType.DEBIT);
+        return result;
     }
+
 
 
 

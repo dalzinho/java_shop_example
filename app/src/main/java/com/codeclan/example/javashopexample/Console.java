@@ -17,11 +17,25 @@ public class Console {
         System.out.println(string);
     }
 
+
+    public void selectCardType(){
+//        scanner = new Scanner(System.in);
+        show("(C)redit Card");
+        show("(D)ebit Card");
+        cardChoice(getInput());
+    }
+
+    public Payable cardChoice(){
+        switch
+    }
+
     public void mainMenu(){
-        show("(S)ale");
-        show("(R)efund");
+        show("New (S)ale");
+        show("New (R)efund");
         show("(T)ransaction log");
         show("Shop (B)alance");
+        mainMenuInput(getInput());
+
     }
 
     public String getInput(){
@@ -32,6 +46,7 @@ public class Console {
 
     public void saleMenu(){
         show("Please enter sale amount");
+        String input = scanner.nextLine();
     }
 
     public void refundMenu(){
@@ -55,6 +70,7 @@ public class Console {
             case "t": transactionLog();
                 break;
             case "b": shopBalance();
+                break;
             default: show("enter a valid key");
                 break;
         }
