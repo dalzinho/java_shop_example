@@ -21,6 +21,7 @@ public class Console {
         show("(S)ale");
         show("(R)efund");
         show("(T)ransaction log");
+        show("Shop (B)alance");
     }
 
     public String getInput(){
@@ -41,6 +42,10 @@ public class Console {
         show("hola compinche");
     }
 
+    public void shopBalance(){
+        show("hola compinche");
+    }
+
     public void mainMenuInput(String input){
         switch(input){
             case "s": saleMenu();
@@ -49,9 +54,10 @@ public class Console {
                 break;
             case "t": transactionLog();
                 break;
+            case "b": shopBalance();
             default: show("enter a valid key");
                 break;
         }
     }
-    
+
 }
