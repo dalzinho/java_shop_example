@@ -31,6 +31,11 @@ public class Shop {
    }
 
     //getters
+
+    public String getShopName() {
+        return shopName;
+    }
+
     public Double getBalance() {
         return shopBalance;
     }
@@ -51,6 +56,7 @@ public class Shop {
     public Double getPrice(String searchKey){
         return (Double) inventory.get(searchKey);
     }
+
 
 
     public void manageTransaction(TransactionType type, Customer customer, Double value, Console console) {
